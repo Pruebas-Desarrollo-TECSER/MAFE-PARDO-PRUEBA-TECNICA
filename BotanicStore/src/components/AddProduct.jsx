@@ -1,9 +1,9 @@
 import {Button} from "@nextui-org/react";
 import {Modal,ModalContent,ModalHeader,ModalBody,ModalFooter,useDisclosure,} from "@nextui-org/react";
-
+import FormUpdate from "./FormUpdate";
 import FormAdd from "./FormAdd";
 
-const AddProduct = ({mode})=>{
+const AddProduct = ({mode, productId})=>{
     const {isOpen, onOpen, onOpenChange} = useDisclosure();
 
     return(
@@ -30,7 +30,11 @@ const AddProduct = ({mode})=>{
                     {mode === "add" ? "Register Product" : "Update Product"} 
                     </ModalHeader>
                     <ModalBody>
-                        <FormAdd mode="add"></FormAdd>
+                        {mode === "add" ? (
+                            <FormAdd mode="add" onSubmit={onClose} />
+                        ) : mode === "update" ? (
+                            <FormUpdate id={productId} onSubmit={onClose} />
+                        ) : null}
                     </ModalBody>
                     <ModalFooter>
                         <Button color="danger" variant="light" onPress={onClose}>
