@@ -1,11 +1,13 @@
-import { Button, Form } from "@nextui-org/react";
+import { Button, Form, useDisclosure } from "@nextui-org/react";
 import { useDispatch } from "react-redux";
-import { addProducts, updateProducts } from "../redux/thunks/productsThunks";
+import { getProducts,addProducts, updateProducts } from "../redux/thunks/productsThunks";
 import { useForm } from "../hoocks/useForm";
 import FormFields from "./FormFields";
 
-const FormAdd = ({ initialData = {}, onSubmit, mode = "add" }) => {
+const FormAdd = ({ initialData = {}, onSubmit, mode, id }) => {
     const dispatch = useDispatch();
+    const {isOpen, onOpen, onOpenChange} = useDisclosure();
+
 
     const { formData, errors, handleInputChange, validate } = useForm({
         name: "",
@@ -29,14 +31,10 @@ const FormAdd = ({ initialData = {}, onSubmit, mode = "add" }) => {
         };
 
         try {
-            let result;
-            if (mode === "add") {
-                result = await dispatch(addProducts(product)); 
-                console.log("Product added:", result);
-            } else if (mode === "update") {
-                result = await dispatch(updateProducts(product)); 
-                console.log("Product updated:", result);
-            }
+            
+            const result = await dispatch(addProducts(product)); 
+            console.log("Product added:", result);
+            await dispatch(getProducts());  
             onSubmit?.(result); 
         } catch (error) {
             console.error("Error:", error);

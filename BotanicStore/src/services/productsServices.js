@@ -43,7 +43,13 @@ export class ProductsService{
     }
     async updateProducts(id, updatedProduct){
         try{
-            const productsData = await axios.put(`${this.baseUrl}products/${id}/?format=json`, updatedProduct);
+            const productsData = await axios.put(`${this.baseUrl}products/${id}/`, updatedProduct,
+                {
+                    headers: {
+                    'Content-Type': 'application/json', 
+                    }
+                }
+            );
             return productsData.data;
         }catch(e){
             console.error('Error updating product:', e);
@@ -51,8 +57,9 @@ export class ProductsService{
         };
     }
     async deleteProducts({id}){
+        console.log('Producto a eliminar:',id)
         try{
-            const productsData = await axios.delete(`${this.baseUrl}products/${id}`);
+            const productsData = await axios.delete(`${this.baseUrl}products/${id}/ `);
             return productsData.data;
         }catch(e){
             console.error('Error deleting product:', e);

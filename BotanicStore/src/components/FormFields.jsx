@@ -72,7 +72,10 @@ const FormFields = ({ formData, errors, onInputChange, mode, product }) => {
                 onChange={onInputChange}
             >
                 {data.map((field) => (
-                    <SelectItem key={field.idcategory} value={field.idcategory}>
+                    <SelectItem
+                    key={field.idcategory}
+                    value={field.idcategory}
+                    >
                         {field.name}
                     </SelectItem>
                 ))}

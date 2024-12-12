@@ -27,7 +27,8 @@ export const addProducts = createAsyncThunk(
 );
 export const updateProducts = createAsyncThunk(
     'products/update',
-    async(id, updateProduct)=>{
+    async({id, updateProduct})=>{
+        console.log("Thunk: data being sent to backend:", { id, updateProduct });
         const response = await productsServices.updateProducts(id, updateProduct);
         return response;
     }
@@ -35,6 +36,7 @@ export const updateProducts = createAsyncThunk(
 export const deleteProducts = createAsyncThunk(
     'products/delete',
     async(id)=>{
-        const response = await productsServices.deleteProducts(id);
+        console.log("Thunk: data being sent to backend:", { id });
+        const response = await productsServices.deleteProducts({id});
     }
 );

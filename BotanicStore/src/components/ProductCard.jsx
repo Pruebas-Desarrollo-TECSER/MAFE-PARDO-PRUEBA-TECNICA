@@ -21,7 +21,7 @@ const ProductCard =({index, name, description, image, quantity})=>{
           </CardBody>
           <CardFooter className="flex items-center justify-center bg-white/10 border-white/20 border-[1px] py-2 rounded-lg shadow-small w-full z-10 gap-2">
             <AddProduct mode="update" productId={index} ></AddProduct>
-            <DeleteProduct></DeleteProduct>
+            <DeleteProduct id={index}></DeleteProduct>
           </CardFooter>
         </Card>
       );

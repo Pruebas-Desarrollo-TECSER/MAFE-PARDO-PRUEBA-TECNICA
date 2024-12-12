@@ -1,10 +1,54 @@
 import {Modal,ModalContent,ModalHeader,ModalBody,ModalFooter,Button,useDisclosure,useDraggable,Image} from "@nextui-org/react";
 import { useRef } from "react";
+import { useDispatch } from "react-redux";
+import { useState, useEffect } from "react";
+import { getProducts,getProductsById, deleteProducts } from "../redux/thunks/productsThunks";
+
 
 const DeleteProduct =({id})=>{
     const {isOpen, onOpen, onOpenChange} = useDisclosure();
     const targetRef = useRef(null);
     const {moveProps} = useDraggable({targetRef, isDisabled: !isOpen});
+
+    const [product, setProduct] = useState(null);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        const fetchProduct = async () => {
+                try {
+                    const result = await dispatch(getProductsById(id));
+                    if (result && result.payload) {
+                        const product = result.payload;
+                        setProduct(result.payload);
+                        console.log("Product fetched:", result.payload);
+                    }
+                } catch (error) {
+                    console.error("Error loading product:", error);
+                }
+            };
+    
+            if (id) {
+                fetchProduct();
+            }
+        }, [id, dispatch]);
+    const handleDelete = async () => {
+        if (product && product.idproduct) {
+            try {
+                const idproduct = product.idproduct;
+                console.log('idproduct:', idproduct);
+
+                const result = await dispatch(deleteProducts(idproduct));
+                console.log("Delete response:", result);
+                await dispatch(getProducts());
+                onOpenChange(false);  
+            } catch (error) {
+                console.error("Error deleting product:", error);
+            }
+        } else {
+            console.error("Product not found or invalid product ID.");
+        }
+    };
+    
     return(
         <>
         <Button onPress={onOpen}
@@ -31,7 +75,7 @@ const DeleteProduct =({id})=>{
                         alt="Woman listing to music"
                         className="object-cover"
                         height={200}
-                        src="https://nextui.org/images/hero-card.jpeg"
+                        src={product.img}
                         width={200}
                     />
                     </div>
@@ -41,7 +85,7 @@ const DeleteProduct =({id})=>{
                     <Button color="danger" variant="light" onPress={onClose}>
                     Cancel
                     </Button>
-                    <Button color="default" onPress={onClose}>
+                    <Button color="default" onPress={handleDelete}>
                     Delete
                     </Button>
                 </ModalFooter>
