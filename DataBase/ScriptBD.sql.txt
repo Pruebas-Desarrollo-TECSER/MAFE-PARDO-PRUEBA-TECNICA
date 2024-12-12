@@ -1,0 +1,84 @@
+CREATE DATABASE botanic_db;
+USE botanic_db;
+
+CREATE TABLE CATEGORY(
+    idCategory INT PRIMARY KEY IDENTITY,
+    Name VARCHAR(45) NOT NULL
+);
+
+CREATE TABLE GENDER (
+    idGender INT PRIMARY KEY IDENTITY,
+    Name VARCHAR(45) NOT NULL
+);
+
+CREATE TABLE SELLER (
+    idSeller INT PRIMARY KEY,
+    FirstName VARCHAR(45) NOT NULL,
+    LastName VARCHAR(45) NOT NULL,
+    address VARCHAR(45) NOT NULL,
+    email VARCHAR(45) NOT NULL,
+    image VARCHAR(300) NOT NULL,
+    BirthDate DATE,
+    Gender_idGender INT,
+    FOREIGN KEY (Gender_idGender) REFERENCES Gender(idGender)
+);
+
+CREATE TABLE PRODUCT (
+    idProduct INT PRIMARY KEY IDENTITY,
+    Name VARCHAR(45) NOT NULL,
+    Description VARCHAR(45) NOT NULL,
+    Quantity INT,
+    img VARCHAR(300) NOT NULL,
+    Category_idCategory INT,
+    FOREIGN KEY (Category_idCategory) REFERENCES Category(idCategory)
+);
+
+CREATE TABLE SALE (
+    idSale INT PRIMARY KEY IDENTITY,
+    DateSale DATE,
+    Product_idProduct INT,
+    Seller_idSeller INT,
+    FOREIGN KEY (Product_idProduct) REFERENCES Product(idProduct),
+    FOREIGN KEY (Seller_idSeller) REFERENCES Seller(idSeller)
+);
+
+-- Insert registros ficticios
+INSERT INTO CATEGORY (Name)
+VALUES 
+    ('Plantas de interior'),
+    ('Plantas de exterior'),
+    ('Cactus'),
+    ('Flores'),
+    ('Árboles');
+
+INSERT INTO GENDER (Name)
+VALUES 
+    ('Masculino'),
+    ('Femenino'),
+    ('Otro'),
+    ('No especificado'),
+    ('Preferiría no decirlo');
+
+INSERT INTO SELLER (idSeller, FirstName, LastName, address, email, image, BirthDate, Gender_idGender)
+VALUES
+    (10548521, 'Juan', 'Pérez', 'Calle Falsa 123', 'juan.perez@email.com', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRcK_HsPU76SbuKHWayFZznThzjhtqR5xmPA&s', '1990-05-12', 1),
+    (29784612, 'Maria', 'Gomez', 'Avenida Libertador 456', 'maria.gomez@email.com', 'https://thumbs.dreamstime.com/b/joven-satisfecha-como-florista-y-vendedora-mujer-especializada-en-la-florister%C3%ADa-del-vivero-274071058.jpg', '1985-09-20', 2),
+    (37896523, 'Carlos', 'López', 'Calle 7 789', 'carlos.lopez@email.com', 'https://st5.depositphotos.com/6247624/76306/i/450/depositphotos_763067576-stock-photo-indoor-gardener-smiles-while-holding.jpg', '1992-11-15', 1),
+    (44512789, 'Lucía', 'Martínez', 'Calle 9 321', 'lucia.martinez@email.com', 'https://st.depositphotos.com/4196725/56745/i/450/depositphotos_567457702-stock-photo-young-adult-pretty-womanm-gardering.jpg', '1988-02-28', 2),
+    (51511658, 'Pedro', 'Rodríguez', 'Avenida Central 101', 'pedro.rodriguez@email.com', 'https://st.depositphotos.com/4196725/55181/i/450/depositphotos_551810264-stock-photo-man-smiling-proudly-confidently-making.jpg', '1995-03-18', 1);
+
+INSERT INTO PRODUCT (Name, Description, Quantity, Category_idCategory, img)
+VALUES
+    ('Maceta pequeña', 'Maceta de plástico para cactus', 10, 3, 'https://cdn0.ecologiaverde.com/es/posts/3/7/9/la_eleccion_de_la_maceta_973_0_600.jpg'),
+    ('Maceta grande', 'Maceta de cerámica para plantas grandes', 5, 3, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQXcfjKfbZB7cC7OqZzZ-eTwYOPmMyzMucBLg&s'),
+    ('Flor de loto', 'Planta acuática para interiores', 7, 4, 'https://definicion.de/wp-content/uploads/2015/10/flor-de-loto.jpg'),
+    ('Cactus de Navidad', 'Planta navideña para interiores', 15, 3, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSR1L4zKbIUpoNs7RevC0nHblBFsChZ_XcTNQ&s'),
+    ('Ficus', 'Árbol de interior de hojas grandes', 8, 5, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQb44WHCn_4g9TTyLMDBpra9cUnsA4-bLu9nQ&s');
+
+INSERT INTO SALE (DateSale, Product_idProduct, Seller_idSeller)
+VALUES
+    ('2024-12-01', 1, 10548521),
+    ('2024-12-02', 2, 29784612),
+    ('2024-12-03', 3, 37896523),
+    ('2024-12-04', 4, 44512789),
+    ('2024-12-05', 5, 51511658);
