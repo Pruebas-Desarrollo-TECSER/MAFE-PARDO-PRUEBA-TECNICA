@@ -58,10 +58,12 @@ La aplicación permite gestionar productos  y visualizar vendedores y ventas, ta
     py .\manage.py runserver
 
 ### Frontend
-1. Navega hasta la app 
+1. Navega hasta la app
+    ```bash
     cd MAFE-PARDO-PRUEBA-TECNICA/botanicStore
 
 2. Ejecuta los siguiente comandos
+   ```bash
     npm i 
     npm run dev 
 
