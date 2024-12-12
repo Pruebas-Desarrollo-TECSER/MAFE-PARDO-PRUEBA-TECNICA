@@ -3,7 +3,6 @@ import axios from "axios";
 export class ProductsService{
     constructor(){
         this.baseUrl = 'http://127.0.0.1:8000/api/';
-        console.log('Url products', this.baseUrl);
     }
 
     async getProducts(){
@@ -57,7 +56,6 @@ export class ProductsService{
         };
     }
     async deleteProducts({id}){
-        console.log('Producto a eliminar:',id)
         try{
             const productsData = await axios.delete(`${this.baseUrl}products/${id}/ `);
             return productsData.data;

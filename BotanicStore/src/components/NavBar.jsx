@@ -43,17 +43,17 @@ export const AcmeLogo = ({width, height}) => {
 
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
         <NavbarItem isActive>
-          <Link  color="foreground" href="#" className="hover:text-green-500">
+          <Link  color="foreground" href="/sellers" className="hover:text-green-500">
             Sellers
           </Link>
         </NavbarItem>
         <NavbarItem isActive>
-          <Link color="foreground" href="#" className="hover:text-green-500">
+          <Link color="foreground" href="/" className="hover:text-green-500">
             Products
           </Link>
         </NavbarItem>
         <NavbarItem isActive>
-          <Link color="foreground" href="#" className="hover:text-green-500">
+          <Link color="foreground" href="sales" className="hover:text-green-500">
             Sales
           </Link>
         </NavbarItem>
