@@ -40,6 +40,7 @@ La aplicación permite gestionar productos  y visualizar vendedores y ventas, ta
    - pip install -r requirements.txt 
 
 2. Configuracion de la base de datos ejemplo:
+   ```bash
    DATABASES = {
     'default': {
         'ENGINE': 'mssql',
