@@ -10,9 +10,17 @@ export const getProducts = createAsyncThunk(
         return data;
     }
 );
+export const getProductsById = createAsyncThunk(
+    'products/getById',
+    async(id)=>{
+        const data = await productsServices.getProductsById(id);
+        return data;
+    }
+);
 export const addProducts = createAsyncThunk(
     'products/add',
     async(product)=>{
+        console.log('Producto en el thunk', product);
         const response = await productsServices.addProducts(product);
         return response;
     }
